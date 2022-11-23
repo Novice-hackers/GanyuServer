@@ -1,0 +1,18 @@
+#!/usr/bin/python
+# coding: utf-8
+import socket
+socCli = socket.socket()
+try:
+    socCli.connect(('154.12.55.40', 6666))
+    print("Connection successful!")
+    while True:
+        data = input()
+        if data == "exit":
+            break
+        socCli.send(data.encode("utf-8"))
+        reply = socCli.recv(1024)
+        print("Received message: %s"%reply.decode("utf-8"))
+except Exception as e:
+    print(e)
+finally:
+    socCli.close()
